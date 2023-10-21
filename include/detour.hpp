@@ -32,8 +32,8 @@ namespace Memory {
 
     template<typename HookStruct> class Detour : public DetourBase {
     public:
-        Detour(void* target) {
-            this->hook = subhook_new(target, reinterpret_cast<void*>(&HookStruct::Callback), SUBHOOK_TRAMPOLINE);
+        Detour(uintrpt_t target) {
+            this->hook = subhook_new(reinterpret_cast<void*>(target), reinterpret_cast<void*>(&HookStruct::Callback), SUBHOOK_TRAMPOLINE);
             subhook_install(this->hook);
             *reinterpret_cast<void**>(&HookStruct::Original) = subhook_get_trampoline(hook);
         }

@@ -6,9 +6,9 @@
 #include <stdexcept>
 
 namespace Memory {
-    
+
     namespace Util {
-        
+
         template<typename T> inline T Relative(uintptr_t relative) {
             return reinterpret_cast<T>(*reinterpret_cast<uintptr_t*>(relative) + relative + sizeof(uintptr_t));
         }
@@ -20,6 +20,10 @@ namespace Memory {
             auto queriedInterface = CreateInterface(interfaceName, &returnValue);
             if(returnValue != 0 || queriedInterface == nullptr) throw std::runtime_error("failed to get an instance of interface");
             return reinterpret_cast<T>(queriedInterface);
+        }
+
+        template<typename T = uintptr_t> inline T VMT(uintptr_t object, size_t index) {
+            return (*reinterpret_cast<T**>(object))[index];
         }
     };
 };
