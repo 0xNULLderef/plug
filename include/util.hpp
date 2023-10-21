@@ -8,7 +8,6 @@
 namespace Memory {
 
     namespace Util {
-
         template<typename T> inline T Relative(uintptr_t relative) {
             return reinterpret_cast<T>(*reinterpret_cast<uintptr_t*>(relative) + relative + sizeof(uintptr_t));
         }
