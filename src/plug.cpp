@@ -10,9 +10,9 @@ Plug::Plug() { }
 
 bool Plug::Load() {
     try {
-        // put code here!
         auto shaderapi = Memory::Modules::Instance()->Get("shaderapidx9");
-        auto device = **Memory::Scanner::Scan<IDirect3D9***>(shaderapi, "A1 ?? ?? ?? ?? 8B 08 6A 00 57", 1);
+        auto device = **Memory::Scanner::Scan<uintptr_t**>(shaderapi, "A1 ?? ?? ?? ?? 8B 08 6A 00 57", 1);
+        this->detours.push_back(new Memory::Detour<Present>(Memory::Util::VMT(device, 17)));
     } catch(const std::exception& ex) {
         ERROR("%s\n", ex.what());
         return false;
@@ -33,4 +33,9 @@ void Plug::Unload() {
 
 const char* Plug::Description() {
     return "plug, the hellish testing bed for bad shitposts";
+}
+
+HRESULT Plug::Present::Callback(IDirect3DDevice9* device, const RECT* source, const RECT* destination, HWND window, const RGNDATA* dirty) {
+    HRESULT hr = Original(device, source, destination, window, dirty);
+    return hr;
 }
