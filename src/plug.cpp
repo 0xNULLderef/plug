@@ -5,6 +5,7 @@
 #include "util.hpp"
 #include "logger.hpp"
 #include <stdexcept>
+#include <d3d9.h>
 
 Plug::Plug() { }
 
@@ -22,6 +23,10 @@ bool Plug::Load() {
 }
 
 void Plug::Unload() {
+    for(auto detour : this->detours) {
+        delete detour;
+    }
+
     LOG("unloading plug >////<\n");
 }
 

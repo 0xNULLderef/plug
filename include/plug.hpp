@@ -1,7 +1,9 @@
-#ifndef COOP_SRM_HPP
-#define COOP_SRM_HPP
+#ifndef PLUG_HPP
+#define PLUG_HPP
 
 #include "singleton.hpp"
+#include "detour.hpp"
+#include <vector>
 
 class Plug : public Singleton<Plug> {
 public:
@@ -10,6 +12,9 @@ public:
     bool Load();
     void Unload();
     const char* Description();
+
+private:
+    std::vector<Memory::DetourBase*> detours;
 };
 
-#endif // COOP_SRM_HPP
+#endif // PLUG_HPP
