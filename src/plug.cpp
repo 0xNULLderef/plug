@@ -5,7 +5,6 @@
 #include "util.hpp"
 #include "logger.hpp"
 #include <stdexcept>
-#include <d3d9.h>
 
 Plug::Plug() { }
 
