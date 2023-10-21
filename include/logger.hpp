@@ -7,7 +7,7 @@
 #include <cstdio>
 #include <cstdint>
 
-#define LOG(...) logger.Log(__VA_ARGS__)
+#define LOG(...) Logger::Instance()->Log(__VA_ARGS__)
 
 #define LOG_COLOR Color(255, 0, 0)
 
@@ -30,7 +30,7 @@ struct Color {
     uint8_t a;
 };
 
-class Logger {
+class Logger : public Singleton<Logger> {
 public:
     template<typename... Args> void Log(const char* format, Args... args) {
 #ifdef DEBUG
@@ -47,5 +47,3 @@ public:
     using ColorMsg_t = void(*)(const Color& color, const char* format, ...);
     ColorMsg_t ColorMsg = nullptr;
 };
-
-extern Logger logger;

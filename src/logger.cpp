@@ -25,5 +25,3 @@ Logger::~Logger() {
     // don't log to source console on destroy, shit would go south quick
     this->ColorMsg = nullptr;
 }
-
-Logger logger;
